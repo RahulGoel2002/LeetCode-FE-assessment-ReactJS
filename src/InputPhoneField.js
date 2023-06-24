@@ -6,8 +6,7 @@ export default function InputPhoneField() {
 
   const handleChange = (event) => {
     const value = event.target.value;
-    const key = event.nativeEvent.data;
-    setInp(checkAlienInput(key) ? formatPhone(value) : inp);
+    setInp(formatPhone(value));
   };
 
   return (

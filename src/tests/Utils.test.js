@@ -1,5 +1,6 @@
 import { formatPhone, removeFormatting, checkAlienInput } from "../Utils";
 
+
 test("Check A1: Check when no formatting required", () => {
   expect(formatPhone("123")).toBe("123");
   expect(formatPhone("")).toBe("");
