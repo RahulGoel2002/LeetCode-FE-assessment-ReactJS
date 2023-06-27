@@ -12,21 +12,19 @@ export default function InputPhoneField() {
 
     // console.log(caretPos);
     const value = event.target.value;
-    const key = event.nativeEvent.data;
+    // const key = event.nativeEvent.data;
     const res = formatPhone(value);
-    console.log(caretPos, value.length);
+    // console.log(caretPos, value.length);
     if (caretPos === value.length - 1) {
-      console.log("yep");
       setCaretPos((prev) => {
         return prev + value.length - 1;
       });
     }
     setInpLen(res.length);
-    setInp(checkAlienInput(key) ? res : inp);
+    setInp(res);
   };
 
   useEffect(() => {
-    console.log("Done afterwards");
     // console.log(inpRef.current.value.length);
     inpRef.current.selectionStart = caretPos;
     inpRef.current.selectionEnd = caretPos;
