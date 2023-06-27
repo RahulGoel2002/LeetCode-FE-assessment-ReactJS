@@ -1,18 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { formatPhone, checkAlienInput } from "./Utils";
 
 export default function InputPhoneField() {
   const [inp, setInp] = useState("");
+  const [inpLen, setInpLen] = useState(0);
+  const [caretPos, setCaretPos] = useState(0);
+  const inpRef = useRef();
 
   const handleChange = (event) => {
+    setCaretPos(inpRef.current.selectionStart);
+
+    // console.log(caretPos);
     const value = event.target.value;
+    // const key = event.nativeEvent.data;
+    const res = formatPhone(value);
+    // console.log(caretPos, value.length);
+    if (caretPos === value.length - 1) {
+      setCaretPos((prev) => {
+        return prev + value.length - 1;
+      });
+    }
+    setInpLen(res.length);
+    setInp(res);
     setInp(formatPhone(value));
   };
+
+  useEffect(() => {
+    // console.log(inpRef.current.value.length);
+    inpRef.current.selectionStart = caretPos;
+    inpRef.current.selectionEnd = caretPos;
+  }, [inp]);
 
   return (
     <div className="App">
       <form>
         <input
+          ref={inpRef}
           type="tel"
           value={inp}
           data-testid="inputfield"
